@@ -1,4 +1,17 @@
-*{
+/* CSS Variables pour maintenance */
+:root {
+    --primary: #b74b4b;
+    --bg-dark: black;
+    --bg-card: #161618;
+    --bg-panel: #0a0a0a;
+    --text: white;
+    --text-muted: wheat;
+    --shadow-primary: 0 0 15px #b74b4b;
+    --border-primary: 2px solid #b74b4b;
+    --transition: 0.3s ease;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,16 +21,44 @@
     font-family: 'Poppins', sans-serif, serif;
 }
 
+/* Focus visible pour a11y */
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Form error styles */
+.error {
+    border-color: #ff4444 !important;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.error::placeholder {
+    color: #ff4444;
+}
+
+/* Lazy images */
+img[loading="lazy"] {
+    opacity: 0;
+    transition: var(--transition);
+}
+
+img[loading="lazy"]:loaded {
+    opacity: 1;
+}
+
+
 html{
     font-size: 64%;
 }
 
-body{
+body {
     width: 100%;
     min-height: 100vh;
-    background-color: black;
-    color: white;
+    background-color: var(--bg-dark);
+    color: var(--text);
 }
+
 
 header{
     margin-top: 20px;
@@ -33,12 +74,12 @@ header{
 }
 
 .logo{
-    font-size: 5rem;
+    font-size:16px;
     color: #b74b4b;
     font-weight: 800;
     cursor: pointer;
     transition: 0.5s ease;
-    margin: 20px;
+    margin-bottom: 20px;
     display: flex;
 }
 
@@ -53,6 +94,7 @@ nav{
     align-items: center;
     justify-content: center;
     margin-right: 20px;
+    background-color: #0a0a0a;
 }
 
 .logo:hover{
@@ -88,7 +130,7 @@ nav a:hover, nav a.active{
         border-bottom: 3px solid #b74b4b;
         border-bottom-left-radius: 2rem;
         padding: 2rem;
-        background-color: #161618;
+        
     }
 
     nav:active{
@@ -113,6 +155,150 @@ nav a:hover, nav a.active{
         gap: 4rem;
     }
 }
+@media(max-width: 768px){
+
+    body{
+        margin: 5px;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    header{
+        flex-direction: row;
+        align-items: baseline;
+        gap: 1rem;
+    }
+
+    .logo{
+        font-size: 3.5rem;
+        margin: 10px 0;
+    }
+
+    nav{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 1rem 0;
+        border: none;
+        background-color: blur(10px);
+        height: 50px;
+    }
+
+    nav a{
+        margin: 0;
+        font-size: 1.6rem;
+    }
+
+    section{
+        padding: 8rem 2rem 3rem;
+    }
+
+    .home{
+        flex-direction:column;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .home-img img{
+        width: 160px;
+    }
+
+    .home-content{
+        font-size: 2.5rem;
+    }
+
+    .home-content h1{
+        font-size: 2.8rem;
+    }
+
+    .home-content h3{
+        font-size: 2rem;
+    }
+
+    .typed-text{
+        font-size: 2.2rem;
+    }
+
+    .home-content p{
+        font-size: 1.4rem;
+        line-height: 1.6;
+        padding: 0 1rem;
+    }
+
+    .btn{
+        display: block;
+        width: 70%;
+        margin: 1rem auto;
+        text-align: center;
+    }
+
+    .social-icons{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .langage-icons{
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .projects-grid{
+        grid-template-columns: 1fr;
+        padding: 0 2rem;
+        gap: 2rem;
+    }
+
+    .project-info h2{
+        font-size: 2rem;
+    }
+
+    .project-desc{
+        font-size: 1.3rem;
+    }
+
+    .contact-container{
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .contact-form{
+        width: 90%;
+        
+        
+    }
+    .project-card{
+        width: 100%;
+        padding: 0;
+        height: auto;
+        
+    }
+
+    .contact-title h1{
+        font-size: 3rem;
+    }
+
+    .faq-title h1{
+        font-size: 3rem;
+    }
+
+    .faq-title p{
+        font-size: 1.5rem;
+    }
+
+    .faq-question h3{
+        font-size: 1.4rem;
+    }
+
+    .faq-answer p{
+        font-size: 1.2rem;
+    }
+}
 
 section{
     min-height: 100vh;
@@ -124,7 +310,8 @@ section{
     justify-content: center;
     align-items: center;
     gap: 8rem;
-    background-color: black;
+   
+    
 }
 
 .home .home-content{

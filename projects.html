@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- SEO Projets -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="matour">
-    <meta name="description" content="portfolio">
+    <meta name="description" content="Projets de Rey Matour - Sites vitrines, dashboard React, clones Netflix - HTML CSS JS PHP React">
+    <meta name="keywords" content="projets web, portfolio développeur, React dashboard, site vitrine, HTML CSS">
+    <meta name="author" content="Rey Matour">
+    
+    <!-- OG -->
+    <meta property="og:title" content="Mes Projets - Rey Matour">
+    <meta property="og:description" content="Découvrez mes réalisations: sites vitrines, dashboard admin React, landing pages responsive">
+    <meta property="og:image" content="images/profile-portfo.jpg">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mes Projets Web">
+    <meta name="twitter:description" content="6 projets live: Fastfood, Netflix clone, Dashboard React...">
+    
+    <!-- Preload FA only CDN -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/fontawesome.css">
-    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <!-- Removed redundant local FA -->
     <link rel="stylesheet" href="css/styles.css">
-    <title>Projects</title>
+    <link rel="shortcut icon" href="images/images-profil.jfif" type="image/x-icon">
+    <script defer src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script defer src="js/main.js"></script>
+    <title>Rey Matour - Mes Projets Web (HTML CSS React PHP)</title>
 </head>
 <body>
     <header>
-        <a href="#" class="logo">
-            Rey
+        <a href="index.html" class="logo" aria-label="Accueil portfolio">
+            Reyes
         </a>
         <nav class="">
             <a href="index.html" class="home">Home</a>
@@ -32,7 +50,7 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-image">
-                    <img src="images/Capture d’écran1.png" alt="project1">
+                    <img src="images/Capture d’écran1.png" alt="Screenshot site Fastfood - commande formulaire" >
                 </div>
                 <div class="project-info">
                     <h2>Fastfood <span>Website</span></h2>
@@ -41,23 +59,22 @@
                         <span>HTML</span>
                         <span>CSS</span>
                     </div>
-                    <a href="../../project web/project-site1/index.html" class="btn-project">Voir le projet</a>
+                    <a href="https://matour1.github.io/fastfood-site/" class="btn-project" target="_blank" rel="noopener">Voir le projet (Live)</a>
                 </div>
             </div> 
             
             <div class="project-card">
                 <div class="project-image">
-                    <img src="images/img1.jpg" alt="project2">
+                    <img src="images/img1.jpg" alt="Screenshot site Docteur Pyramide de lise - vitrine médicale" >
                 </div>
                 <div class="project-info">
-                    <h2>Site de<span>doc</span></h2>
-                    <p class="project-desc">site vitrine de la piramide de lise</p>
+                    <h2>Site de<span>docteur</span></h2>
+                    <p class="project-desc">Site vitrine responsive pour cabinet médical Pyramide de Lise</p>
                     <div class="project-tech">
                         <span>HTML</span>
                         <span>CSS</span>
-                        
                     </div>
-                    <a href="#" class="btn-project">Voir le projet</a>
+                    <a href="https://github.com/martour1/site-docteur" class="btn-project" target="_blank" rel="noopener">Voir le projet (GitHub)</a>
                 </div>
             </div> 
             
@@ -72,7 +89,7 @@
                         <span>HTML</span>
                         <span>css</span>
                     </div>
-                    <a href="#" class="btn-project">Voir le projet</a>
+                    <a href="https://matour1.github.io/ISN-bafoussam/index.html" class="btn-project">Voir le projet</a>
                 </div>
             </div> 
             
@@ -91,6 +108,36 @@
                     <a href="https://posttrendly.vercel.app/admin" class="btn-project">Voir le projet</a>
                 </div>
             </div> 
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/Capture d’écran site clone netfix.png" alt="Screenshot clone Netflix moderne responsive" >
+                </div>
+                <div class="project-info">
+                    <h2>Clone <span>Netflix</span></h2>
+                    <p class="project-desc">Reproduction fidèle du site Netflix avec carousel et animations CSS/JS</p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JS</span>
+                    </div>
+                    <a href="https://github.com/martour1/netflix-clone" class="btn-project" target="_blank" rel="noopener">Code source (GitHub)</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/Capture d’écran agenda.png" alt="Screenshot application agenda rappels notifications">
+                </div>
+                <div class="project-info">
+                    <h2>Agenda <span>Rappels</span></h2>
+                    <p class="project-desc">Application web d'agenda avec notifications et rappels personnalisés</p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JS</span>
+                    </div>
+                    <a href="https://github.com/martour1/agenda-app" class="btn-project" target="_blank" rel="noopener">Code source (GitHub)</a>
+                </div>
+            </div>
         </div>
     </section>
 </body>

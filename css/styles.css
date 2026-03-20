@@ -59,6 +59,17 @@ body {
     color: var(--text);
 }
 
+.btn-cv{
+    
+  background-color:#333;
+  color:#b74b4b;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 30px;
+  border:2px solid #b74b4b;
+
+}
+
 
 header{
     margin-top: 20px;

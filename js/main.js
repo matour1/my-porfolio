@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', updateActiveNav);
     updateActiveNav();
 
-    // 3. FORM VALIDATION + EMAILJS
+    // 3. FORM VALIDATION + BACKEND
     const form = document.getElementById('contact-form');
     const statusMsg = document.getElementById('form-status');
     if (form && statusMsg) {
@@ -56,27 +56,45 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             if (!validateForm()) return;
 
-            // EmailJS (remplacez keys)
-            if (typeof emailjs === 'undefined') {
-                statusMsg.textContent = 'EmailJS non chargé. Vérifiez le script.';
-                statusMsg.className = 'error';
+            if (window.location.protocol === 'file:') {
+                statusMsg.textContent = 'Démarrez le serveur Node (localhost) pour envoyer.';
+                statusMsg.className = 'form-status error';
+                statusMsg.style.display = 'block';
                 return;
             }
-            emailjs.init('YOUR_PUBLIC_KEY'); // ex: user_abc123
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+
+            const payload = {
                 from_name: document.getElementById('name').value,
                 from_email: document.getElementById('email').value,
                 subject: document.getElementById('subject').value,
                 message: document.getElementById('message').value
-            }).then(() => {
-                statusMsg.textContent = 'Message envoyé ! Merci.';
-                statusMsg.className = 'success';
-                form.reset();
-            }, (error) => {
-                console.error('EmailJS error:', error);
-                statusMsg.textContent = 'Erreur envoi. Réessayez.';
-                statusMsg.className = 'error';
-            });
+            };
+
+            statusMsg.textContent = 'Envoi en cours...';
+            statusMsg.className = 'form-status';
+            statusMsg.style.display = 'block';
+
+            fetch('/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(async (res) => {
+                    const data = await res.json().catch(() => ({}));
+                    if (!res.ok || !data.ok) {
+                        throw new Error(data.error || 'Erreur envoi.');
+                    }
+                    statusMsg.textContent = 'Message envoyé ! Merci.';
+                    statusMsg.className = 'form-status success';
+                    statusMsg.style.display = 'block';
+                    form.reset();
+                })
+                .catch((error) => {
+                    console.error('Send error:', error);
+                    statusMsg.textContent = error.message || 'Erreur envoi. Réessayez.';
+                    statusMsg.className = 'form-status error';
+                    statusMsg.style.display = 'block';
+                });
         });
     }
 

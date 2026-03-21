@@ -41,6 +41,26 @@
     color: #ff4444;
 }
 
+/* Form status messages */
+#form-status.form-status{
+    display: block;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1.3rem;
+}
+
+#form-status.form-status.success{
+    background-color: rgba(46, 204, 113, 0.15);
+    color: #bff5d5;
+    border: 1px solid rgba(46, 204, 113, 0.35);
+}
+
+#form-status.form-status.error{
+    background-color: rgba(255, 68, 68, 0.15);
+    color: #ffd2d2;
+    border: 1px solid rgba(255, 68, 68, 0.35);
+}
+
 /* Lazy images */
 img[loading="lazy"] {
     opacity: 0;
@@ -74,7 +94,13 @@ body {
   border:2px solid #b74b4b;
   font-size: 14px;
   box-shadow: var(--shadow-soft);
+  
 
+   
+
+}
+.d-btn{
+    position: absolute; top: 75%; left: 60%;
 }
 
 
@@ -183,11 +209,15 @@ nav a:hover, nav a.active{
     .home{
         gap: 4rem;
     }
+    
 } /* END COMMENTED OUT */
 /* COMMENTED OUT: Mobile responsive @media(max-width: 768px) */
 @media(max-width: 768px){
     :root{
         --header-height: 112px;
+    }
+    .d-btn{
+       position: static;
     }
 
     body{
@@ -431,6 +461,7 @@ span{
     box-shadow: 0 0 25px rgba(183, 75, 75, 0.45);
     cursor: pointer;
     transition: 0.2s linear;
+    margin-top: 60px;
 }
 
 .home-img img:hover{
@@ -796,12 +827,18 @@ span{
 }
 
 .faq-item{
-    background-color: #161618;
+    background: linear-gradient(180deg, #1b1b1e 0%, #121214 100%);
     border-radius: 10px;
     margin-bottom: 15px;
     border: 2px solid #b74b4b;
     overflow: hidden;
     box-shadow: var(--shadow-card);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.faq-item:hover{
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
 }
 
 .faq-question{
@@ -841,8 +878,10 @@ span{
 .faq-answer{
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
     background-color: #0a0a0a;
+    opacity: 0;
+    transform: translateY(-6px);
 }
 
 .faq-answer p{
@@ -854,6 +893,13 @@ span{
 
 .faq-item[open] .faq-answer{
     max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.faq-item[open]{
+    border-color: #f06b6b;
+    box-shadow: 0 0 0 1px rgba(240, 107, 107, 0.35), 0 18px 40px rgba(183, 75, 75, 0.35);
 }
 
 .faq-item[open] .faq-icon{

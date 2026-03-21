@@ -1,55 +1,54 @@
-// js/main.js - Portfolio amélioré (EmailJS, UX, a11y)
+﻿// js/main.js - Portfolio amélioré (EmailJS, UX, a11y)
 // Note: Remplacez YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, YOUR_PUBLIC_KEY par vos clés EmailJS (emailjs.com gratuit)
 // Alternative Netlify: deployez sur netlify.com (drag dossier), form auto-func sans JS.
 
 document.addEventListener('DOMContentLoaded', function() {
     // 1. SMOOTH SCROLL
-    document.querySelectorAll('a[href^=\"#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#') return;
+            const target = document.querySelector(href);
+            if (!target) return;
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            target.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-    // 2. NAVBAR ACTIVE STATE (hashchange + IntersectionObserver fallback)
+    // 2. NAVBAR ACTIVE STATE (hash + current page)
     function updateActiveNav() {
-        const current = location.hash.substring(1) || window.scrollY < 100 ? 'home' : null;
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        if (current) {
-            const link = document.querySelector(`nav a[href*=\"${current}\"]`);
-            if (link) link.classList.add('active');
+        const links = document.querySelectorAll('nav a');
+        if (!links.length) return;
+
+        links.forEach(a => a.classList.remove('active'));
+
+        const hash = location.hash;
+        if (hash) {
+            const link = document.querySelector(`nav a[href="${hash}"]`);
+            if (link) {
+                link.classList.add('active');
+                return;
+            }
         }
+
+        const path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        const pageLink = Array.from(links).find(a => {
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            return href && !href.startsWith('#') && href.endsWith(path);
+        });
+        if (pageLink) {
+            pageLink.classList.add('active');
+            return;
+        }
+
+        const homeLink = document.querySelector('nav a[href="#home"]') || document.querySelector('nav a[href="index.html"]');
+        if (homeLink) homeLink.classList.add('active');
     }
     window.addEventListener('hashchange', updateActiveNav);
     window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
 
-    // 3. FAQ ACCORDION ARIA (a11y)
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.setAttribute('role', 'button');
-        question.setAttribute('tabindex', '0');
-        question.setAttribute('aria-expanded', 'false');
-        question.addEventListener('click', toggleFAQ);
-        question.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleFAQ.call(question);
-            }
-        });
-    });
-
-    function toggleFAQ() {
-        const item = this.parentElement;
-        const answer = item.querySelector('.faq-answer');
-        const isExpanded = item.classList.toggle('active');
-        this.setAttribute('aria-expanded', isExpanded);
-        const icon = this.querySelector('.faq-icon');
-        if (icon) icon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-    }
-
-    // 4. FORM VALIDATION + EMAILJS
+    // 3. FORM VALIDATION + EMAILJS
     const form = document.getElementById('contact-form');
     const statusMsg = document.getElementById('form-status');
     if (form && statusMsg) {
@@ -58,6 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!validateForm()) return;
 
             // EmailJS (remplacez keys)
+            if (typeof emailjs === 'undefined') {
+                statusMsg.textContent = 'EmailJS non chargé. Vérifiez le script.';
+                statusMsg.className = 'error';
+                return;
+            }
             emailjs.init('YOUR_PUBLIC_KEY'); // ex: user_abc123
             emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
                 from_name: document.getElementById('name').value,
@@ -78,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Form validation client-side
     function validateForm() {
+        if (!form) return false;
         const inputs = form.querySelectorAll('input[required], textarea[required]');
         let valid = true;
         inputs.forEach(input => {
@@ -99,4 +104,5 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('input', () => input.classList.remove('error'));
     });
 });
+
 
